@@ -1,0 +1,97 @@
+$main-bg-color: #444444;
+$body-bg-color: #222222;
+$white-color: #d9d9d9;
+$disable-color: #717171;
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: $body-bg-color;
+  display: grid;
+  place-items: center;
+  padding: 2%;
+}
+
+#content {
+  background-color: #333333;
+  padding: 3%;
+  border-radius: 2ch;
+}
+
+#searchBar,
+#writingBar {
+  position: relative;
+}
+
+#searchBar input,
+#writingBar input {
+  background-color: $main-bg-color;
+  color: $white-color;
+  font-size: 20px;
+  padding: 10px 0 10px 50px;
+  margin: 5px;
+  border-radius: 40px;
+  position: relative;
+  top: 0;
+}
+
+#searchBar label svg,
+#writingBar label svg {
+  width: 20px;
+  color: $white-color;
+}
+
+#searchBar label,
+#writingBar label {
+  padding: 10px;
+  background-color: #555;
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  position: absolute;
+  border-radius: 50%;
+  z-index: 99;
+  top: 5px;
+  cursor: pointer;
+  user-select: none;
+}
+
+#tasks {
+  margin-top: 5%;
+}
+
+.task {
+  background-color: $main-bg-color;
+  padding: 6%;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  margin: 10px 0;
+}
+
+.checkbox {
+  width: 17px;
+  height: 17px;
+  float: left;
+}
+
+.text {
+  padding-left: 15px;
+  font-size: 17px;
+  color: $white-color;
+  font-weight: 600;
+  user-select: none;
+}
+
+.checkbox:checked ~ .text {
+  color: $disable-color;
+  text-decoration: line-through;
+}
