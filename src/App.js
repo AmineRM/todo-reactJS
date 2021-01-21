@@ -11,10 +11,9 @@ export default class App extends Component {
             tasks : [],
             searchBarValue : '',
             addTaskBarValue : '',
-            tasksNum : 0
+            tasksNum : 0,
+            tmpTasks : [] // tmpTask is copy of tasks array to make dynamic changes to the to-do list
         }
-
-        this.searchInput = React.createRef();
     }
 
     addTask = e => {
@@ -27,6 +26,7 @@ export default class App extends Component {
                         text : this.state.addTaskBarValue,
                     }
                 ),
+                tmpTasks : this.state.tasks,
                 addTaskBarValue : '',
                 tasksNum : this.state.tasksNum + 1
             })
@@ -35,13 +35,14 @@ export default class App extends Component {
 
     searchTask = e => {
         e.preventDefault()
-        if ( this.state.searchBarValue !== '' ){
-            this.state.tasks.forEach( task => {
-                let taskText = task.text.toLowerCase();
-                let searchBarValueText = this.state.searchBarValue.toLowerCase();
-                if (taskText.indexOf(searchBarValueText) !== -1) {
-                    console.log(task.text); // display just section has task.text
-                }
+        if ( this.state.searchBarValue !== '' && this.state.tasks.length !== 0 ){
+            let searchBarValueText = this.state.searchBarValue.toLowerCase();
+            this.setState({
+                tmpTasks : this.state.tasks.filter( task => task.text.toLowerCase().indexOf(searchBarValueText) !== -1 )
+            })
+        } else if ( this.state.searchBarValue === '' ) {
+            this.setState({
+                tmpTasks : this.state.tasks
             })
         }
     }
@@ -69,7 +70,6 @@ export default class App extends Component {
                         id="searchInput"
                         value={this.state.searchBarValue}
                         onChange={this.handleSearchInputChange} 
-                        ref={this.searchInput}
                         type="text"
                         placeholder="Search" />
                 </form>
@@ -89,10 +89,11 @@ export default class App extends Component {
                 </form>
 
                 <div id="tasks">
-                    {this.state.tasks.map(
+                    {this.state.tmpTasks.map(
                         task => <Task text={task.text} key={task.id} /> 
                     )}
                 </div>
+
             </>
         )
     }
